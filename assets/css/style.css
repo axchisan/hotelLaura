@@ -1,0 +1,72 @@
+
+:root {
+  --hotel-primary: #ce80c8;   
+  --hotel-secondary: #29a0b1;  
+  --hotel-light: #e8f7ee;     
+  --hotel-dark: #333333;      
+  --hotel-accent: #ff7e67;     
+}
+
+.navbar {
+  background: linear-gradient(to right, var(--hotel-primary), var(--hotel-secondary)) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: bold;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: var(--hotel-light) !important;
+}
+
+footer {
+  background: linear-gradient(to right, var(--hotel-primary), var(--hotel-secondary)) !important;
+  color: white !important;
+  padding: 1.5rem 0 !important;
+}
+
+.btn-primary {
+  background-color: var(--hotel-secondary);
+  border-color: var(--hotel-secondary);
+}
+
+.btn-primary:hover {
+  background-color: #2590a0;
+  border-color: #2590a0;
+}
+
+.btn-success {
+  background-color: var(--hotel-primary);
+  border-color: var(--hotel-primary);
+}
+
+.btn-success:hover {
+  background-color: #d399b7;
+  border-color: #185a4a;
+}
+
+.btn-light {
+  background-color: var(--hotel-light);
+  border-color: #ddd;
+  color: var(--hotel-dark);
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background-color: var(--hotel-light);
+}
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+  width: 100%;
+}
