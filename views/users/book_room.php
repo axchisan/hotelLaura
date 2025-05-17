@@ -46,7 +46,7 @@
                 
                 <div class="row mt-4">
                     <div class="col">
-                        <input type="submit" value="Book Room" class="btn btn-success btn-block">
+                        <input type="submit" value="Reservar Habitacion" class="btn btn-success btn-block">
                     </div>
                     <div class="col">
                         <a href="index.php?controller=user&action=dashboard" class="btn btn-light btn-block">Cancel</a>

@@ -37,30 +37,30 @@ class ReceptionistController {
                 'expected_check_out_date_err' => ''
             ];
             if(empty($data['room_id'])) {
-                $data['room_id_err'] = 'Please select a room';
+                $data['room_id_err'] = 'Por favor seleccione una habitación';
             } else {
                 $room = $this->roomModel->getRoomById($data['room_id']);
                 if(!$room) {
-                    $data['room_id_err'] = 'Room does not exist';
+                    $data['room_id_err'] = 'La habitación no existe';
                 } elseif($room['status'] != 'available') {
-                    $data['room_id_err'] = 'Room is not available';
+                    $data['room_id_err'] = 'La habitación no está disponible';
                 }
             }
             if(empty($data['guest_name'])) {
-                $data['guest_name_err'] = 'Please enter guest name';
+                $data['guest_name_err'] = 'Por favor ingrese el nombre del huésped';
             }
             if(empty($data['guest_email'])) {
-                $data['guest_email_err'] = 'Please enter guest email';
+                $data['guest_email_err'] = 'Por favor ingrese el correo del huésped';
             } elseif(!filter_var($data['guest_email'], FILTER_VALIDATE_EMAIL)) {
-                $data['guest_email_err'] = 'Please enter a valid email';
+                $data['guest_email_err'] = 'Por favor ingrese un correo válido';
             }
             if(empty($data['guest_phone'])) {
-                $data['guest_phone_err'] = 'Please enter guest phone';
+                $data['guest_phone_err'] = 'Por favor ingrese el teléfono del huésped';
             }
             if(empty($data['expected_check_out_date'])) {
-                $data['expected_check_out_date_err'] = 'Please enter expected check-out date';
+                $data['expected_check_out_date_err'] = 'Por favor ingrese la fecha de salida esperada';
             } elseif(strtotime($data['expected_check_out_date']) <= time()) {
-                $data['expected_check_out_date_err'] = 'Expected check-out date must be in the future';
+                $data['expected_check_out_date_err'] = 'La fecha de salida esperada debe ser en el futuro';
             }
 
             if(empty($data['room_id_err']) && empty($data['guest_name_err']) && empty($data['guest_email_err']) && 
@@ -69,10 +69,10 @@ class ReceptionistController {
                 
                 if($booking_id) {
                     $this->roomModel->updateRoomStatus($data['room_id'], 'occupied');
-                    $_SESSION['flash_message'] = 'Check-in successful';
+                    $_SESSION['flash_message'] = 'Registro exitoso';
                     header('Location: index.php?controller=receptionist&action=dashboard');
                 } else {
-                    die('Something went wrong');
+                    die('Algo salió mal');
                 }
             } else {
                 $availableRooms = $this->roomModel->getAvailableRooms();
@@ -112,13 +112,13 @@ class ReceptionistController {
         $booking = $this->bookingModel->getBookingById($id);
         
         if(!$booking) {
-            $_SESSION['flash_message'] = 'Booking not found';
+            $_SESSION['flash_message'] = 'Reserva no encontrada';
             header('Location: index.php?controller=receptionist&action=dashboard');
             return;
         }
         
         if($booking['status'] != 'active') {
-            $_SESSION['flash_message'] = 'Booking already checked out';
+            $_SESSION['flash_message'] = 'Reserva ya registrada';
             header('Location: index.php?controller=receptionist&action=dashboard');
             return;
         }
@@ -130,10 +130,10 @@ class ReceptionistController {
             $total_amount = $days * $booking['price_per_night'];
             if($this->bookingModel->checkOut($id, date('Y-m-d H:i:s'), $total_amount)) {
                 $this->roomModel->updateRoomStatus($booking['room_id'], 'available');
-                $_SESSION['flash_message'] = 'Check-out successful. Total amount: $' . $total_amount;
+                $_SESSION['flash_message'] = 'Registro exitoso. Total: $' . $total_amount;
                 header('Location: index.php?controller=receptionist&action=dashboard');
             } else {
-                die('Something went wrong');
+                die('Algo salió mal');
             }
         } else {
             $check_in_date = new DateTime($booking['check_in_date']);
@@ -146,4 +146,3 @@ class ReceptionistController {
     }
 }
 ?>
-

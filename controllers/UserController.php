@@ -25,33 +25,33 @@ class UserController {
                 'confirm_password_err' => ''
             ];
             if(empty($data['email'])) {
-                $data['email_err'] = 'Please enter email';
+                $data['email_err'] = 'Por favor ingrese el correo';
             } else {
                 if($this->userModel->findUserByEmail($data['email'])) {
-                    $data['email_err'] = 'Email is already taken';
+                    $data['email_err'] = 'El correo ya está en uso';
                 }
             }
             if(empty($data['name'])) {
-                $data['name_err'] = 'Please enter name';
+                $data['name_err'] = 'Por favor ingrese el nombre';
             }
             if(empty($data['password'])) {
-                $data['password_err'] = 'Please enter password';
+                $data['password_err'] = 'Por favor ingrese la contraseña';
             } elseif(strlen($data['password']) < 6) {
-                $data['password_err'] = 'Password must be at least 6 characters';
+                $data['password_err'] = 'La contraseña debe tener al menos 6 caracteres';
             }
             if(empty($data['confirm_password'])) {
-                $data['confirm_password_err'] = 'Please confirm password';
+                $data['confirm_password_err'] = 'Por favor confirme la contraseña';
             } else {
                 if($data['password'] != $data['confirm_password']) {
-                    $data['confirm_password_err'] = 'Passwords do not match';
+                    $data['confirm_password_err'] = 'Las contraseñas no coinciden';
                 }
             }
             if(empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
                 if($this->userModel->register($data)) {
-                    $_SESSION['flash_message'] = 'You are registered and can log in';
+                    $_SESSION['flash_message'] = 'Te has registrado y puedes iniciar sesión';
                     header('Location: index.php?controller=user&action=login');
                 } else {
-                    die('Something went wrong');
+                    die('Algo salió mal');
                 }
             } else {
                 require_once 'views/users/register.php';
@@ -82,13 +82,13 @@ class UserController {
                 'password_err' => ''
             ];
             if(empty($data['email'])) {
-                $data['email_err'] = 'Please enter email';
+                $data['email_err'] = 'Por favor ingrese el correo';
             }
             if(empty($data['password'])) {
-                $data['password_err'] = 'Please enter password';
+                $data['password_err'] = 'Por favor ingrese la contraseña';
             }
             if(!$this->userModel->findUserByEmail($data['email'])) {
-                $data['email_err'] = 'No user found';
+                $data['email_err'] = 'No se encontró el usuario';
             }
             if(empty($data['email_err']) && empty($data['password_err'])) {
                 $loggedInUser = $this->userModel->login($data['email'], $data['password']);
@@ -104,7 +104,7 @@ class UserController {
                         header('Location: index.php?controller=user&action=dashboard');
                     }
                 } else {
-                    $data['password_err'] = 'Password incorrect';
+                    $data['password_err'] = 'Contraseña incorrecta';
                     require_once 'views/users/login.php';
                 }
             } else {
@@ -152,24 +152,24 @@ class UserController {
                 'check_out_date_err' => ''
             ];
             if(empty($data['room_id'])) {
-                $data['room_id_err'] = 'Please select a room';
+                $data['room_id_err'] = 'Por favor seleccione una habitación';
             } else {
                 $room = $this->roomModel->getRoomById($data['room_id']);
                 if(!$room) {
-                    $data['room_id_err'] = 'Room does not exist';
+                    $data['room_id_err'] = 'La habitación no existe';
                 } elseif($room['status'] != 'available') {
-                    $data['room_id_err'] = 'Room is not available';
+                    $data['room_id_err'] = 'La habitación no está disponible';
                 }
             }
             if(empty($data['check_in_date'])) {
-                $data['check_in_date_err'] = 'Please enter check-in date';
+                $data['check_in_date_err'] = 'Por favor ingrese la fecha de entrada';
             } elseif(strtotime($data['check_in_date']) < strtotime(date('Y-m-d'))) {
-                $data['check_in_date_err'] = 'Check-in date must be today or in the future';
+                $data['check_in_date_err'] = 'La fecha de entrada debe ser hoy o en el futuro';
             }
             if(empty($data['check_out_date'])) {
-                $data['check_out_date_err'] = 'Please enter check-out date';
+                $data['check_out_date_err'] = 'Por favor ingrese la fecha de salida';
             } elseif(strtotime($data['check_out_date']) <= strtotime($data['check_in_date'])) {
-                $data['check_out_date_err'] = 'Check-out date must be after check-in date';
+                $data['check_out_date_err'] = 'La fecha de salida debe ser posterior a la fecha de entrada';
             }
             if(empty($data['room_id_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err'])) {
                 $bookingData = [
@@ -185,11 +185,10 @@ class UserController {
                 
                 if($booking_id) {
                     $this->roomModel->updateRoomStatus($data['room_id'], 'occupied');
-                    $_SESSION['flash_message'] = 'Room booked successfully!';
-
+                    $_SESSION['flash_message'] = '¡Habitación reservada con éxito!';
                     header('Location: index.php?controller=user&action=myBookings');
                 } else {
-                    die('Something went wrong');
+                    die('Algo salió mal');
                 }
             } else {
                 $room = $this->roomModel->getRoomById($data['room_id']);
@@ -205,7 +204,7 @@ class UserController {
             $room = $this->roomModel->getRoomById($room_id);
             
             if(!$room || $room['status'] != 'available') {
-                $_SESSION['flash_message'] = 'Room is not available for booking';
+                $_SESSION['flash_message'] = 'La habitación no está disponible para reserva';
                 header('Location: index.php?controller=user&action=dashboard');
                 return;
             }
@@ -242,4 +241,3 @@ class UserController {
     }
 }
 ?>
-
