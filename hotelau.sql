@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-03-2025 a las 19:09:39
+-- Tiempo de generación: 17-05-2025 a las 07:56:04
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.1.17
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `hotel_db`
+-- Base de datos: `hotelau`
 --
 
 -- --------------------------------------------------------
@@ -49,7 +49,13 @@ CREATE TABLE `bookings` (
 INSERT INTO `bookings` (`id`, `room_id`, `guest_name`, `guest_email`, `guest_phone`, `check_in_date`, `expected_check_out_date`, `check_out_date`, `total_amount`, `status`, `created_by`, `created_at`) VALUES
 (2, 4, 'Angie', 'fandinoangie4@gmail.com', 'N/A', '2025-03-23 14:00:00', '2025-03-24', '2025-03-24 00:49:55', 150.00, 'completed', 5, '2025-03-23 20:53:52'),
 (3, 1, 'Angie', 'fandinoangie4@gmail.com', 'N/A', '2025-03-23 14:00:00', '2025-03-24', '2025-03-23 22:43:00', 100.00, 'completed', 5, '2025-03-23 21:42:42'),
-(4, 3, 'Angie', 'fandinoangie4@gmail.com', 'N/A', '2025-03-24 14:00:00', '2025-03-25', '2025-03-24 00:49:58', 100.00, 'completed', 5, '2025-03-23 23:49:36');
+(4, 3, 'Angie', 'fandinoangie4@gmail.com', 'N/A', '2025-03-24 14:00:00', '2025-03-25', '2025-03-24 00:49:58', 100.00, 'completed', 5, '2025-03-23 23:49:36'),
+(5, 1, 'user', 'user@hotel.com', 'N/A', '2025-05-18 14:00:00', '2025-05-20', '2025-05-17 04:05:47', 100.00, 'completed', 5, '2025-05-17 03:23:14'),
+(6, 5, 'user', 'user@hotel.com', 'N/A', '2025-05-18 14:00:00', '2025-05-19', '2025-05-17 04:05:49', 150.00, 'completed', 5, '2025-05-17 03:59:02'),
+(7, 4, 'user', 'user@hotel.com', 'N/A', '2025-05-23 14:00:00', '2025-05-26', '2025-05-17 04:05:45', 900.00, 'completed', 5, '2025-05-17 04:00:37'),
+(8, 3, 'user', 'user@hotel.com', 'N/A', '2025-05-18 14:00:00', '2025-05-20', '2025-05-17 04:10:41', 100.00, 'completed', 5, '2025-05-17 04:07:03'),
+(9, 6, 'user', 'user@hotel.com', 'N/A', '2025-05-18 14:00:00', '2025-05-19', '2025-05-17 04:10:50', 250.00, 'completed', 5, '2025-05-17 04:09:46'),
+(10, 2, 'Carlos', 'carlos@gmail.com', '4333', '2025-05-17 04:11:37', '2025-05-20', NULL, NULL, 'active', 6, '2025-05-17 04:11:37');
 
 -- --------------------------------------------------------
 
@@ -72,12 +78,13 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `room_number`, `room_type`, `capacity`, `price_per_night`, `features`, `status`) VALUES
-(1, '101', 'standard', 2, 100.00, 'Wi-Fi, TV, Air Conditioning', 'available'),
-(2, '102', 'standard', 2, 100.00, 'Wi-Fi, TV, Air Conditioning', 'available'),
-(3, '103', 'standard', 2, 100.00, 'Wi-Fi, TV, Air Conditioning', 'available'),
-(4, '201', 'deluxe', 3, 150.00, 'Wi-Fi, TV, Air Conditioning, Mini Bar, Balcony', 'available'),
-(5, '202', 'deluxe', 3, 150.00, 'Wi-Fi, TV, Air Conditioning, Mini Bar, Balcony', 'available'),
-(6, '301', 'suite', 4, 250.00, 'Wi-Fi, TV, Air Conditioning, Mini Bar, Balcony, Living Room, Jacuzzi', 'available');
+(1, '101', 'standard', 2, 100.00, 'Wi-Fi, TV, Aire acondicionado', 'available'),
+(2, '102', 'standard', 2, 100.00, 'Wi-Fi, TV, Aire acondicionado', 'occupied'),
+(3, '103', 'standard', 2, 100.00, 'Wi-Fi, TV, Aire acondicionado', 'available'),
+(4, '201', 'deluxe', 3, 150.00, 'Wi-Fi, TV, Aire acondicionado, Mini Bar, Balcon', 'available'),
+(5, '202', 'deluxe', 3, 150.00, 'Wi-Fi, TV, Aire acondicionado, Mini Bar, Balcon', 'available'),
+(6, '301', 'suite', 6, 250.00, 'Wi-Fi, TV, Aire acondicionado, Mini Bar, Balcon, Sala de estar, Jacuzzi', 'available'),
+(7, '302', 'suite', 4, 250.00, 'Wi-Fi, TV, Aire acondicionado, Mini Bar, Balcon, Sala de estar, Jacuzzi', 'available');
 
 -- --------------------------------------------------------
 
@@ -99,9 +106,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `created_at`) VALUES
-(1, 'Admin User', 'admin@hotel.com', '$2y$10$8zUlxQxkK2LiBm4m9KbYzOXwLjFZG4zXNgBEk9XfIXBIZQAJQFzMy', 'admin', '2025-03-23 19:09:32'),
-(5, 'Angie', 'fandinoangie4@gmail.com', '$2y$10$HYaLpA1LP7MTTVvlPH9dFuYtIs4aC96zk4SSlK7487lz0osEHqH2O', 'user', '2025-03-23 20:53:34'),
-(6, 'Angie', 'angie@gmail.com', '$2y$10$biVn9tbkljZjOJy.iVm20OBVE3/6Tp8rFCv0Yg9ENVicC7pDuXY0a', 'receptionist', '2025-03-24 00:19:26');
+(1, 'admin', 'admin@hotel.com', '$2y$12$lBYB5Pes73MB75jG3t9DEeIR8kyuMRk5H2Bb7ScMswWfBfuc9rVq6', 'admin', '2025-03-23 19:09:32'),
+(5, 'user', 'user@hotel.com', '$2y$12$lBYB5Pes73MB75jG3t9DEeIR8kyuMRk5H2Bb7ScMswWfBfuc9rVq6', 'user', '2025-03-23 20:53:34'),
+(6, 'recepcionista', 'recepcionist@hotel.com', '$2y$12$lBYB5Pes73MB75jG3t9DEeIR8kyuMRk5H2Bb7ScMswWfBfuc9rVq6', 'receptionist', '2025-03-24 00:19:26');
 
 --
 -- Índices para tablas volcadas
@@ -137,13 +144,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
